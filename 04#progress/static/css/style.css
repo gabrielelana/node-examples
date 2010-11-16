@@ -1,0 +1,28 @@
+div#template {
+    display: none;
+}
+
+div.progress-container {
+    border: 1px solid #ccc; 
+    width: 400px; 
+    margin: 2px 5px 2px 0; 
+    padding: 1px; 
+    float: left; 
+    background: white;
+    clear: both;
+    position: relative;
+}
+
+div.progress-bar {
+    background-color: #ACE97C;
+    height: 20px;
+    width: 0%;
+}
+
+span.progress-text {
+    width:400px;
+    text-align:center;
+    float:left;
+    font: normal 12px Arial,sans-serif;
+    margin-top: 3px;
+}

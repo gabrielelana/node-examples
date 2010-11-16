@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html> 
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Node.js - Tic Tac Toe</title> 
+    <script type="text/javascript" src="/comet.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.4.3.js"></script>
+    <script type="text/javascript" src="/js/raphael-1.5.2.js"></script>
+    <script type="text/javascript" src="/js/underscore-1.1.2.js"></script>
+    <script type="text/javascript" src="/js/backbone-0.3.0.js"></script>
+    <script type="text/javascript" src="/js/sammy-0.6.2.js"></script>
+    <script type="text/javascript" src="/js/application.js"></script>
+  </head> 
+  <body>
+    <h1 id="message"></h1>
+    <div id="board"></div>
+  </body>
+  <script>
+    $(function() {
+      var comet = new Faye.Client("/comet")
+
+      $.sammy(function() {
+        
+        var game = new Game()
+
+        this.get("", function(context) {
+          $.post("/board", function(response) {
+            context.redirect("#/board/" + response["board"]["id"])
+          })
+        })
+
+        this.get("#/board/:id", function(context) {
+          game.start()
+          $.get("/board/" + context.params["id"], function(response) {
+            game.set({ "me": new User(response.user) })
+            game.set({ "board": new Board(response.board) })
+            comet.connect()
+            comet.subscribe("/board-" + context.params["id"], function(update) {
+              game.get("board").get("cells").set(update["cells"])
+              game.get("board").set({
+                "players": update["players"],
+                "status": update["status"],
+                "turn": update["turn"],
+                "winner": update["winner"]
+              })
+            })
+          })
+        })
+
+      }).run()
+
+    })
+  </script>
+</html>
