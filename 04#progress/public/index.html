@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html> 
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Node.js - Long Running Jobs</title> 
+    <link href="css/style.css" rel="stylesheet" /> 
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/jquery-1.6.0.js"></script>
+    <script type="text/javascript" src="js/progress.js"></script>
+  </head> 
+  <body>
+    <div id="template">
+      <div class="progress-container">
+        <span class="progress-text">JOB/? - ?%</span>
+        <div class="progress-bar"></div>
+      </div>
+    </div>
+    <div id="container"> </div>
+  </body>
+  <script>
+    $(function() {
+      var socket = new io.Socket()
+
+      socket.on("connect", function() { })
+      socket.on("disconnect", function() { })
+      socket.on("message", function(job) {
+        $("#template").progressBar(job.id, job.progress)
+      })
+
+      socket.connect()
+    })
+  </script>
+</html>

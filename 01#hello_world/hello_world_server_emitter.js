@@ -24,18 +24,3 @@ server.on("listening", function() {
 })
 
 server.listen(8080)
-
-// var server = http.createServer(function(request, response) {
-// 	request.on("end", function() {
-// 		console.log("Request ended")
-// 		response.writeHead(200, {
-// 			"Content-Type": "plain/text"
-// 		})
-// 		response.write("Hello World\n")
-// 		response.end()
-// 	})
-// })
-// 
-// server.listen(8080)
-
-// console.log("Server Started")

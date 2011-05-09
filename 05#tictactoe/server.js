@@ -9,6 +9,7 @@ var sys = require("sys"),
 
 var boards = new Backbone.Collection
 var users = new Backbone.Collection
+    
 
 var User = Backbone.Model.extend({ })
 var Board = Backbone.Model.extend({
@@ -82,8 +83,6 @@ var Board = Backbone.Model.extend({
     )
   }
 })
-
-
 
 var comet = new Faye.NodeAdapter({ "mount": "/comet", "timeout": 50 }),
     client = comet.getClient(),

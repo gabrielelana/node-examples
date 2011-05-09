@@ -1,5 +1,4 @@
-var port = 8080,
-    spawn = require("child_process").spawn
+var port = 8080, spawn = require("child_process").spawn
 
 var server = require("http").createServer()
 
